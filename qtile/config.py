@@ -93,16 +93,19 @@ keys = [
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload config"),
     Key([mod, "shift"], "backspace", lazy.spawn(home + "/.config/rofi/powermenu/powermenu.sh"), desc="Open Powermenu"),
     Key([mod, "control"], "Return", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher/style.rasi"), desc="Open AppMenu"),
-    Key([mod, 'control'], "l", lazy.spawn(home + "/.config/polybar/launch.sh"), desc="Reload polybar"),
+    Key([mod, 'control'], "k", lazy.spawn(home + "/.config/polybar/launch.sh"), desc="Reload polybar"),
 
     # Apps
     Key([mod], "Return", lazy.spawn(terminal)),
     Key([mod, "shift"], "Return", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher/style.rasi")),
     Key([mod], "b", lazy.spawn(browser), desc="Launch Browser"),
-    Key([], "Print", lazy.spawn(home + "/.config/rofi/screenshot/screenshot.sh")),
+    Key([mod, 'shift'], "b", lazy.spawn('firefox'), desc="Launch second Browser"),
+    Key([], "Print", lazy.spawn("flameshot gui")),
     Key([mod, "control"], "w", lazy.spawn(home + "/.config/rofi/Wallpapers/wallpaper.sh select"), desc="Select Theme and Wallpaper"),
     Key([mod], "x", lazy.spawn("copyq menu")),
+    Key([mod], "l", lazy.spawn(home + "/.config/qtile/lock.sh")),
     Key([], "XF86Calculator", lazy.spawn("gnome-calculator")),
+    Key([mod, 'shift'], "c", lazy.spawn('code ' + home + "/.config/qtile/config.py"), desc="Launch config"),
 
     # Volume Controls
     Key([], 'XF86AudioRaiseVolume', lazy.spawn("amixer -c 0 sset Master 2+ unmute")),
@@ -212,6 +215,8 @@ floating_layout = layout.Floating(
         #Match(wm_class="loupe"),
         Match(wm_class="gnome-calculator"),
         Match(wm_class="gnome-calendar"),
+        Match(wm_class="tk"),
+        Match(wm_class="com-azefsw-audioconnect-desktop-app-MainKt"),
     ]
 )
 
@@ -240,3 +245,5 @@ def autostart():
     autostartscript = "~/.config/qtile/autostart.sh"
     home = os.path.expanduser(autostartscript)
     subprocess.Popen([home])
+
+
